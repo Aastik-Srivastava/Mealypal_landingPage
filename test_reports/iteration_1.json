@@ -1,0 +1,28 @@
+{
+  "summary": "Frontend-only testing of the Mealypal landing page. All 18 acceptance criteria pass: page loads with correct title, all required data-testids present, all 5 trigger buttons (hero-signup, hero-login, nav-signup, nav-login, final-cta-signup) open the same EmailCaptureModal with correct headline, modal closes via X / backdrop / Escape, invalid email shows 'valid email' error, valid email POSTs to the Formspree placeholder (https://formspree.io/f/YOUR_FORM_ID) and gracefully shows 'Something went wrong, please try again.', Manrope font is loaded, macro pills do not overlap the 'Grilled Paneer Bowl' title, and the page is fully responsive at 390px with no horizontal overflow across all scroll positions and the modal renders as a bottom sheet touching the viewport bottom.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "EmailCaptureModal backdrop is a <button> sibling of the dialog inside the same flex container. The dialog (relative, rendered after the button) visually stacks above the backdrop, but a coordinate-based click in the center of the screen lands on the dialog, not the backdrop. The backdrop's onClick still fires for clicks on the actual exposed edges (and via dispatch_event), but if the dialog ever shrinks or the layout changes, center clicks won't close. Consider attaching onClose to the outer fixed container's onClick (with stopPropagation on the dialog) for a more conventional and robust backdrop-close behavior.",
+    "FORMSPREE_ENDPOINT is hardcoded as 'https://formspree.io/f/YOUR_FORM_ID'. This is intentional per the request, but documenting the env-var alternative (e.g. process.env.REACT_APP_FORMSPREE_ENDPOINT) would be a small improvement.",
+    "Modal does not clear the input value when the user closes it via Escape immediately (a 200ms timeout clears state on close — fine, just note that rapid reopen could briefly show prior state).",
+    "Body-lock useEffect runs setTimeout inside the effect without clearing it on cleanup; minor risk of focus being set after unmount. Not a bug but worth tightening."
+  ],
+  "updated_files": [],
+  "success_rate": {"frontend": "100%"},
+  "test_credentials": "N/A — landing page is static; no auth backend.",
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Landing page is a pure static React marketing page with NO FastAPI integration. EmailCaptureModal posts directly to a Formspree placeholder URL. The placeholder is intentional — do NOT swap it out. To test the backdrop close, use dispatch_event('click') on '[data-testid=email-modal-backdrop]' (a coordinate click on the centered backdrop button is intercepted by the dialog overlay). To submit invalid emails, first remove the native HTML5 'required' / type=email validation via JS, otherwise the browser blocks submission before React's handler runs. All required testids exist: navbar, brand-logo, nav-login-button, nav-signup-button, hero-section, hero-signup-button, hero-login-button, hero-headline, hero-subheadline, macro-pill-{calories,protein,carbs,fat}, problem-section, how-it-works-section, audience-section, features-section, vision-section, final-cta-section, footer, how-step-1..4, feature-card-0..5, final-cta-signup-button, footer-{about,contact,privacy}, email-modal, email-modal-{headline,input,submit,close,backdrop,error,success}.",
+  "rca of the issue": "No issues found — all acceptance criteria verified passing on desktop (1920x1080) and mobile (390x844)."
+}
