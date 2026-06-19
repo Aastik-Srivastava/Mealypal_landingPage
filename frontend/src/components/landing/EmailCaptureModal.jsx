@@ -91,18 +91,19 @@ const EmailCaptureModal = ({ open, onClose, intent = "signup" }) => {
       role="dialog"
       aria-modal="true"
       aria-labelledby="email-modal-title"
+      onClick={onClose}
     >
       {/* Backdrop */}
-      <button
-        aria-label="Close modal"
+      <div
+        aria-hidden
         data-testid="email-modal-backdrop"
-        onClick={onClose}
         className="absolute inset-0 bg-slate-900/50 backdrop-blur-sm animate-[fadeUp_0.25s_ease-out]"
       />
 
       {/* Sheet/Dialog */}
       <div
         ref={dialogRef}
+        onClick={(e) => e.stopPropagation()}
         className="relative w-full sm:max-w-md mx-auto bg-white rounded-t-3xl sm:rounded-3xl shadow-[0_30px_80px_-20px_rgba(2,44,34,0.45)] p-6 sm:p-8 reveal in-view"
       >
         <button
