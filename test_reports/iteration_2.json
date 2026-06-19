@@ -1,0 +1,28 @@
+{
+  "summary": "Frontend-only testing of the FeedbackSurveyModal on the Mealypal landing page. Verified all 5 CTAs open the same modal, full 5-step flow (intro -> role -> contact -> validation+frustration -> pricing -> open feedback + submit), role-conditional labels (student vs admin), email validation, back-button data preservation, Other frustration text input gating, Formspree submission success path (state.succeeded -> Thank you screen), backdrop click close, Escape close, X close, and mobile 390px bottom sheet rendering. 42/43 individual assertions passed; the single 'fail' is a test-only selector limitation (RoleCard does not expose aria-checked) and not a product bug: role state is preserved across back-navigation (confirmed indirectly because step 3 continued to render the student-variant labels after going back to step 1 and forward again).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Modal on mobile (390px)", "issues": ["The 'Made with Emergent' badge sits at the bottom-right of the viewport and visually overlaps the bottom edge of the bottom-sheet modal. It did NOT block any interactive elements in our tests, but main agent may want to be aware. This is the platform badge, not app code, so likely not actionable."]}
+    ]
+  },
+  "test_report_links": ["/app/test_reports/iteration_2.json"],
+  "action_items": [
+    "(Optional, low priority) Add aria-checked={selected} to the RoleCard <button> in FeedbackSurveyModal.jsx so the selected state is exposed for assistive tech and tests. Functionality is unaffected."
+  ],
+  "critical_code_review_comments": [
+    "PillGroup uses data-testid {prefix}-{value} which collides for 'other': both the pill button AND the revealed text input have data-testid='survey-frustration-other'. Tests can still distinguish via tag (input vs button), but consider renaming the text input to 'survey-frustration-other-input' for clarity.",
+    "RoleCard exposes selection via CSS classes only — adding aria-checked / role='radio' would make it consistent with the PillGroup pattern used elsewhere in the same component.",
+    "Formspree form ID 'mbdevnwr' is hardcoded in the component (FORMSPREE_FORM_ID const). Consider moving to an env var (e.g. REACT_APP_FORMSPREE_ID) for environment-level flexibility, though not strictly necessary."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (skipped per request)", "frontend": "98% (42/43 assertions; the 1 miss is a test-only aria attribute, not a functional bug)"},
+  "test_credentials": "Not applicable — survey form only; no auth.",
+  "seed_data_creation": "None.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "FeedbackSurveyModal is fully functional. CTAs verified: nav-signup-button, nav-login-button, hero-signup-button, hero-login-button, final-cta-signup-button all open survey-modal with survey-step-intro. Flow testids: survey-step-intro, survey-step-1..5, survey-progress (hidden on intro), survey-back-button (hidden on intro), survey-modal-close (X), survey-modal-backdrop, survey-success, survey-success-close, survey-submit-button (shows 'Submitting…' state.submitting), survey-skip-button, survey-submit-error (state.errors path). Formspree (mbdevnwr) submission succeeded in the test environment (state.succeeded -> Thank you screen). Email regex validation works. Back nav preserves email/name/role/validation/frustration/pricing values. Admin role correctly reworded step 3 frustration manual_logging label, step 3 question 'managing mess menus today', and step 4 heading includes 'per institution, per month'. Mobile bottom-sheet renders full-width anchored to bottom at 390px viewport with no horizontal page overflow.",
+  "rca of the issue": "back-preserves-role assertion checked aria-checked on survey-role-student which is implemented via the RoleCard <button> and does NOT set aria-checked (selection shown by Tailwind classes). The underlying React state IS preserved correctly (verified by re-entering step 3 still showing student-variant labels). Mitigation: add aria-checked={selected} on RoleCard for better a11y + testability."
+}

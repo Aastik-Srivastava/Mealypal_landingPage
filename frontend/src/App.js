@@ -9,7 +9,7 @@ import Features from "@/components/landing/Features";
 import Vision from "@/components/landing/Vision";
 import FinalCTA from "@/components/landing/FinalCTA";
 import Footer from "@/components/landing/Footer";
-import EmailCaptureModal from "@/components/landing/EmailCaptureModal";
+import FeedbackSurveyModal from "@/components/landing/FeedbackSurveyModal";
 
 function useScrollReveal() {
   useEffect(() => {
@@ -32,30 +32,26 @@ function useScrollReveal() {
 
 function App() {
   const [modalOpen, setModalOpen] = useState(false);
-  const [modalIntent, setModalIntent] = useState("signup"); // "signup" | "login"
 
-  const openModal = (intent = "signup") => {
-    setModalIntent(intent);
-    setModalOpen(true);
-  };
+  const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
 
   useScrollReveal();
 
   return (
     <div className="App min-h-screen bg-white text-slate-900 antialiased">
-      <Navbar onSignup={() => openModal("signup")} onLogin={() => openModal("login")} />
+      <Navbar onSignup={openModal} onLogin={openModal} />
       <main>
-        <Hero onSignup={() => openModal("signup")} onLogin={() => openModal("login")} />
+        <Hero onSignup={openModal} onLogin={openModal} />
         <Problem />
         <HowItWorks />
         <WhoItsFor />
         <Features />
         <Vision />
-        <FinalCTA onSignup={() => openModal("signup")} />
+        <FinalCTA onSignup={openModal} />
       </main>
       <Footer />
-      <EmailCaptureModal open={modalOpen} onClose={closeModal} intent={modalIntent} />
+      <FeedbackSurveyModal open={modalOpen} onClose={closeModal} />
     </div>
   );
 }
