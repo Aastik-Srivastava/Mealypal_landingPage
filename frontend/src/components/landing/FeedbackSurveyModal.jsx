@@ -161,13 +161,25 @@ const FeedbackSurveyModal = ({ open, onClose }) => {
     })();
 
     // useForm handleSubmit accepts plain SubmissionData objects.
+    const roleLabel = role === "admin" ? "Mess Manager / Admin" : "Student / User";
+    const pricingLabel = (() => {
+      const map = {
+        "0-99": "₹0–99",
+        "100-299": "₹100–299",
+        "300-499": "₹300–499",
+        "500-plus": "₹500+",
+      };
+      return map[pricing] || pricing;
+    })();
+
     const payload = {
-      role: role === "admin" ? "Mess Manager / Admin" : "Student / User",
+      _subject: `New Mealypal lead — ${roleLabel} — ${pricingLabel}`,
+      role: roleLabel,
       name: name || "(not provided)",
       email,
       validation,
       frustration: frustrationLabel,
-      pricing_per_month: pricing,
+      pricing_per_month: pricingLabel,
       open_feedback: openFeedback || "(none)",
       source: "mealypal-landing-survey",
     };
