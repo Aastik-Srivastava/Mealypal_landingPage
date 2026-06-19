@@ -1,0 +1,123 @@
+{
+  "theme": "light",
+  "archetype": "Organic & Earthy / Modern SaaS (Archetype 1 + 4 Blend)",
+  "typography": {
+    "primary_font": "Manrope, sans-serif",
+    "font_weights": {
+      "regular": 400,
+      "semibold": 600,
+      "extrabold": 800
+    },
+    "hierarchy": {
+      "h1": "text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter leading-[1.1]",
+      "h2": "text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight",
+      "h3": "text-xl md:text-2xl font-semibold tracking-tight",
+      "body": "text-base md:text-lg text-slate-600 leading-relaxed",
+      "labels": "text-sm font-semibold tracking-widest uppercase text-emerald-600"
+    }
+  },
+  "color_palette": {
+    "background": {
+      "primary": "#ffffff",
+      "secondary": "#f8fafc",
+      "tertiary": "#f1f5f9"
+    },
+    "text": {
+      "primary": "#0f172a",
+      "secondary": "#475569",
+      "muted": "#94a3b8",
+      "inverse": "#ffffff"
+    },
+    "brand": {
+      "emerald_dark": "#022c22",
+      "emerald_main": "#059669",
+      "lime_accent": "#84cc16",
+      "mint_light": "#d1fae5"
+    },
+    "gradients": {
+      "brand_primary": "bg-gradient-to-r from-emerald-900 via-emerald-700 to-emerald-500",
+      "accent_highlight": "bg-gradient-to-br from-emerald-400 to-lime-300",
+      "blob_glow": "bg-gradient-to-r from-emerald-300/30 to-lime-300/30"
+    }
+  },
+  "spacing_and_layout": {
+    "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+    "section_padding": "py-20 md:py-32",
+    "border_radius": {
+      "card": "rounded-3xl",
+      "button": "rounded-full",
+      "pill": "rounded-full"
+    },
+    "shadows": {
+      "soft": "shadow-[0_8px_30px_rgb(0,0,0,0.04)]",
+      "hover": "shadow-[0_20px_40px_rgb(0,0,0,0.08)]",
+      "glass": "shadow-[0_4px_24px_-8px_rgba(5,150,105,0.2)]"
+    }
+  },
+  "motion_and_interaction": {
+    "rules": "No heavy animation libraries. Rely solely on Tailwind CSS transitions and keyframes.",
+    "hover_states": "Cards lift slightly (-translate-y-1) with increased shadow. Buttons scale slightly (scale-105).",
+    "custom_keyframes": "Add a floating animation in index.css for the hero macro pills: @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } } .animate-float { animation: float 4s ease-in-out infinite; }"
+  },
+  "components_strategy": {
+    "Hero": {
+      "layout": "Two-column on desktop. Left: Text content, Right: Stylized Meal Card UI.",
+      "headline": "The Nutrition Operating System for Institutions",
+      "subheadline": "Students log meals manually. Institutions already know the menu. We bridge the gap with zero-effort nutrition tracking.",
+      "ctas": "Primary (Sign Up) in solid emerald, Secondary (Login) as outlined/ghost. Both trigger EmailCaptureModal.",
+      "visual": "A DOM-constructed UI card representing a meal. Center image (healthy salad), surrounded by absolute positioned 'macro pills' (Calories, Protein, Carbs, Fat) that use the .animate-float class. Background should have blurred gradient blobs for depth."
+    },
+    "TheProblem": {
+      "layout": "Centered, high-impact typography. Minimalist.",
+      "style": "Use the 'Swiss/High-Contrast' archetype feel here. Big text, clear message."
+    },
+    "HowItWorks": {
+      "layout": "4-step horizontal flow or alternating vertical layout.",
+      "style": "Use lucide-react icons in soft mint circular containers. Connect steps with subtle dashed lines if horizontal.",
+      "steps": ["Org uploads menu", "Auto-matches to DB", "Students see meals", "Tap 'Ate this'"]
+    },
+    "WhoItsFor": {
+      "layout": "3-column grid.",
+      "cards": ["Institutions", "Students", "Mess Managers/Admins"],
+      "style": "Cards with soft off-white background, deep emerald headings, and simple illustrative icons."
+    },
+    "Features": {
+      "layout": "6-card CSS Grid (2x3 or 3x2 based on screen size).",
+      "style": "Bento-box inspired. White cards with border-slate-100, soft shadow. Top-aligned icons with bright accent colors.",
+      "items": ["Smart Food Matching", "Personalized Goals", "Org Workspaces", "Zero-Effort Logging", "Real-Time Analytics", "Verified Nutrition DB"]
+    },
+    "VisionSection": {
+      "layout": "Full width, immersive. Use a very subtle mint background.",
+      "content": "'Built for the future of institutional nutrition'",
+      "style": "No testimonials. Just pure, confident brand vision."
+    },
+    "FinalCTA": {
+      "layout": "Centered block.",
+      "style": "Use 'gradients.brand_primary' for the background. White text. High contrast."
+    },
+    "EmailCaptureModal": {
+      "behavior": "Accessible dialog.",
+      "mobile_style": "Bottom sheet: fixed bottom-0 left-0 w-full bg-white rounded-t-3xl p-6 transform transition-transform.",
+      "desktop_style": "Centered modal with backdrop blur.",
+      "content": "Headline 'Mealypal isn\\'t live yet — be first in line'. Input field + Notify Me button. Include a success state view."
+    }
+  },
+  "media_urls": {
+    "hero_meal_image": {
+      "url": "https://images.pexels.com/photos/6978146/pexels-photo-6978146.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "Top view of a healthy salad bowl. Use this inside the stylized hero UI card, masked in a circle with rounded borders."
+    },
+    "abstract_background_blob": {
+      "url": "https://images.unsplash.com/photo-1649861742672-20152f77c1f5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwyfHxhYnN0cmFjdCUyMGxpbWUlMjBncmVlbiUyMGVtZXJhbGQlMjBncmFkaWVudHxlbnwwfHx8fDE3ODE4NDQzMTB8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Abstract green gradient. Use as a background image with heavy blur (backdrop-blur-3xl or opacity-20) behind the hero section to create an atmospheric glow."
+    }
+  },
+  "instructions_to_main_agent": [
+    "Strictly adhere to the `no heavy animation libs` rule. Do NOT install framer-motion. Use vanilla CSS and Tailwind utilities.",
+    "Use Lucide-react for all icons.",
+    "Import Manrope font from Google Fonts in index.css: @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap');",
+    "Ensure all interactive elements have `data-testid` attributes (e.g., `data-testid=\"hero-signup-button\"`).",
+    "Implement the floating macro pills in the Hero component using absolute positioning around the central meal image, utilizing standard CSS keyframes.",
+    "Make sure the EmailCaptureModal works responsively (sheet on mobile, centered modal on desktop) and simulates a success state upon submission."
+  ]
+}
