@@ -346,7 +346,7 @@ const FeedbackSurveyModal = ({ open, onClose }) => {
             </div>
             {frustration === "other" && (
               <input
-                data-testid="survey-frustration-other"
+                data-testid="survey-frustration-other-input"
                 type="text"
                 value={frustrationOther}
                 onChange={(e) => setFrustrationOther(e.target.value)}
@@ -553,6 +553,8 @@ const RoleCard = ({ icon: Icon, label, selected, onClick, testId }) => (
   <button
     type="button"
     data-testid={testId}
+    role="radio"
+    aria-checked={selected}
     onClick={onClick}
     className={`w-full text-left p-4 rounded-2xl border transition-all duration-200 flex items-center gap-3 ${
       selected
